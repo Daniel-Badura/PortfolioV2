@@ -1,19 +1,9 @@
 import React from 'react'
+import Hero from '../components/Hero'
 
 function HomeScreen() {
-    return (
-        <div>
-            {/* front section */}
-            <section id="front">
-                {/* front container */}
-                <div className="container max-w-6xl mx-auto px-6 py-12 md:px-0">
+    return (<div></div>)
 
-                </div>
-
-            </section>
-
-        </div>
-    )
 }
 
 export default HomeScreen

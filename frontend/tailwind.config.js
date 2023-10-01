@@ -7,6 +7,11 @@ export const theme = {
     lg: "976px",
     xl: "1440px",
   },
-  extend: {},
+  extend: {
+    fontFamily: {
+      chakra: ["Chakra Petch"],
+      sourceCode: ["Source Code Pro"],
+    },
+  },
 };
 export const plugins = [];
