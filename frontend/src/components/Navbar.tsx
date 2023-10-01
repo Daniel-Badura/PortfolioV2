@@ -1,8 +1,10 @@
 import React from 'react'
 
-const Navbar = () => {
+function Navbar(){
   return (
-    <div>Navbar</div>
+    <h1 className="text-3xl font-bold underline">
+    Hello world!
+  </h1>
   )
 }
 
