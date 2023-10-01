@@ -35,7 +35,7 @@ if (process.env.NODE_ENV === "production") {
 app.use(notFound);
 app.use(errorHandler);
 
-let PORT: string | number = process.env.PORT || 5000;
+let PORT = process.env.PORT || 5000;
 app.listen(
   PORT,
   console.log(
