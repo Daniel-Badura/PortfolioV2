@@ -4,6 +4,7 @@ import colors from "colors";
 import morgan from "morgan";
 import path from "path";
 import connectDB from "./config/db.js";
+import projectRoutes from "./routes/projectRoutes.js";
 
 import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
 
@@ -20,6 +21,8 @@ app.use(express.json());
 dotenv.config();
 
 connectDB();
+// @desc Start Express Application //
+app.use("/api/project", projectRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/build")));

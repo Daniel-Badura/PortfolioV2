@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Navbar() {
+function Navbar(): JSX.Element {
   return (
     <section id="navbar">Navbar</section>
   )

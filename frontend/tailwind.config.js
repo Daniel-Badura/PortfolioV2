@@ -12,6 +12,9 @@ export const theme = {
       chakra: ["Chakra Petch"],
       sourceCode: ["Source Code Pro"],
     },
+    letterSpacing: {
+      em3: ".3em",
+    },
   },
 };
 export const plugins = [];

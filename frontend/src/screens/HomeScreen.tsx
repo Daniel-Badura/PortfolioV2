@@ -1,8 +1,14 @@
 import React from 'react'
-import Hero from '../components/Hero'
+import Feature from '../components/Feature'
+import Projects from '../components/Projects'
 
-function HomeScreen() {
-    return (<div></div>)
+function HomeScreen(): JSX.Element {
+    return (
+        <>
+            <Feature />
+            <Projects />
+        </>
+    )
 
 }
 
