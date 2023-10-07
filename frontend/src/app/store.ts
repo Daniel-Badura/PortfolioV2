@@ -12,7 +12,7 @@ import {
   projectListReducer,
 } from "../reducers/projectReducers";
 
-const middleware: Middleware[] = [thunk];
+// const middleware: Middleware[] = [thunk];
 
 const reducer = combineReducers({
   projectDetails: projectDetailsReducer,
@@ -29,7 +29,7 @@ const preloadedState = {
 export const store = configureStore({
   reducer,
   preloadedState,
-  middleware,
+  // middleware: middleware,
 });
 
 export type RootState = ReturnType<typeof store.getState>;

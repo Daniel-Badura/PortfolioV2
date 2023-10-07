@@ -21,7 +21,8 @@ export const projectListReducer = (
       return { projects: [] };
     case PROJECT_LIST_SUCCESS:
       return {
-        projects: action.payload.projects,
+        projects: action.payload,
+        error: "",
       };
     case PROJECT_LIST_FAIL:
       return { error: action.payload, projects: [] };

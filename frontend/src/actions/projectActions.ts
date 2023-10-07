@@ -14,7 +14,6 @@ export const listProjects =
   (keyword: string = "") =>
   async (dispatch: Dispatch) => {
     try {
-      console.log("123");
       dispatch({ type: PROJECT_LIST_REQUEST });
       const { data } = await axios.get(`/api/projects?keyword=${keyword}`);
       dispatch({

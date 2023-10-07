@@ -22,7 +22,7 @@ dotenv.config();
 
 connectDB();
 // @desc Start Express Application //
-app.use("/api/project", projectRoutes);
+app.use("/api/projects", projectRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "/frontend/build")));

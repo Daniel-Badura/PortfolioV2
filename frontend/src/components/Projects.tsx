@@ -16,7 +16,7 @@ function Projects(): JSX.Element {
     const { projects } = projectList;
     useEffect(() => {
         if (projectList.error === "initial") {
-            listProjects()
+            dispatch(listProjects())
         }
     }, []);
 
@@ -33,7 +33,7 @@ function Projects(): JSX.Element {
                     </button>
                 </div>
                 {/* Item container */}
-                {projects.map((project: any) => (
+                {projects?.map((project: any) => (
                     <Project key={project.name} image={project.image} name={project.name} />
                 ))}
 
