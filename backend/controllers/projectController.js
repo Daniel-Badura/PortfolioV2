@@ -5,8 +5,6 @@ import Project from "../models/projectModel.js";
 // @route       GET /api/projects
 // @access      Public
 export const getProjects = asyncHandler(async (req, res) => {
-  const pageSize = 10;
-
   const name = req.query.keyword
     ? {
         name: {
@@ -50,7 +48,6 @@ export const getProjects = asyncHandler(async (req, res) => {
   const projects = await Project.find({
     $or: search,
   });
-
   res.json(projects);
 });
 
@@ -73,4 +70,10 @@ export const getProject = asyncHandler(async (req, res) => {
     reviews: project.reviews,
     questions: project.questions.length,
   };
+  if (project) {
+    res.json(projectDetails);
+  } else {
+    res.status(404);
+    throw new Error("Project not found");
+  }
 });

@@ -8,47 +8,44 @@ import {
 } from "../constants/projectConstants";
 
 interface ProjectListState {
-  loading: boolean;
-  projects: any[]; // Update the type of 'projects' as needed
+  projects: any[];
   error?: string;
 }
 
 export const projectListReducer = (
-  state: ProjectListState = { loading: false, projects: [] },
-  action: any // Update the type of 'action' as needed
+  state: ProjectListState = { projects: [] },
+  action: any
 ): ProjectListState => {
   switch (action.type) {
     case PROJECT_LIST_REQUEST:
-      return { loading: true, projects: [] };
+      return { projects: [] };
     case PROJECT_LIST_SUCCESS:
       return {
-        loading: false,
         projects: action.payload.projects,
       };
     case PROJECT_LIST_FAIL:
-      return { loading: false, error: action.payload, projects: [] };
+      return { error: action.payload, projects: [] };
     default:
       return state;
   }
 };
 
 interface ProjectDetailsState {
-  loading: boolean;
-  project: any; // Update the type of 'project' as needed
+  project: any;
   error?: string;
 }
 
 export const projectDetailsReducer = (
-  state: ProjectDetailsState = { loading: false, project: {} },
-  action: any // Update the type of 'action' as needed
+  state: ProjectDetailsState = { project: {} },
+  action: any
 ): ProjectDetailsState => {
   switch (action.type) {
     case PROJECT_DETAILS_REQUEST:
-      return { ...state, loading: true };
+      return { ...state };
     case PROJECT_DETAILS_SUCCESS:
-      return { loading: false, project: action.payload };
+      return { project: action.payload };
     case PROJECT_DETAILS_FAIL:
-      return { loading: false, error: action.payload, project: {} };
+      return { error: action.payload, project: {} };
     default:
       return state;
   }
