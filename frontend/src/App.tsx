@@ -6,6 +6,8 @@ import './App.css';
 import HomeScreen from './screens/HomeScreen';
 import ContactScreen from './screens/ContactScreen';
 import ProjectScreen from './screens/ProjectScreen';
+import InstagramScreen from './screens/InstagramScreen';
+import FacebookScreen from './screens/FacebookScreen';
 
 function App() {
   return (
@@ -15,6 +17,8 @@ function App() {
         <Route path="/" element={<HomeScreen />} />
         <Route path="/contact" element={<ContactScreen />} />
         <Route path="/projects" element={<ProjectScreen />} />
+        <Route path="/facebook" element={<FacebookScreen />} />
+        <Route path="/instagram" element={<InstagramScreen />} />
       </Routes>
       <Footer />
     </Router >

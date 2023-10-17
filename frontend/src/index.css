@@ -16,7 +16,10 @@
 }
 
 .item {
-  @apply relative overflow-hidden md:w-1/5 py-5;
+  @apply relative overflow-hidden md:w-1/5;
+}
+.nav-item {
+  @apply mx-2 group-hover:border-b group-hover:border-blue-50;
 }
 
 .item-gradient {
@@ -33,5 +36,39 @@
   #header {
     background-image: url("../public/images/keyboard.jpg");
     background-position: center;
+  }
+}
+
+.btn {
+  margin-top: auto;
+}
+
+.card.shadow-animate:hover {
+  box-shadow: 0px 0px 20px 10px #48abe0;
+  animation: shadows 3s infinite;
+}
+
+.card:hover {
+  color: #48abe0;
+  border-radius: 10px;
+  box-shadow: 0 0 50px 15px #48abe0;
+}
+
+@keyframes shadows {
+  0% {
+    text-shadow: #48abe0 0 0 10px;
+    box-shadow: 0px 0px 20px 10px #48abe0;
+  }
+  50% {
+    text-shadow: blueviolet 0 0 10px;
+    box-shadow: 0px 0px 20px 10px blueviolet;
+  }
+  75% {
+    text-shadow: rebeccapurple 0 0 10px;
+    box-shadow: 0px 0px 20px 10px rebeccapuprle;
+  }
+  100% {
+    text-shadow: #48abe0 0 0 10px;
+    box-shadow: 0px 0px 20px 10px #48abe0;
   }
 }

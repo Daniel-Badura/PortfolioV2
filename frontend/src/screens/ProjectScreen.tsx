@@ -17,9 +17,9 @@ function ProjectScreen(): JSX.Element {
     }, [dispatch, projectList]);
 
     return (
-        <div className="project-container">
+        <div className="bg-black project-container py-5">
             {projects?.map((project: any) => (
-                <Project key={project.name} image={project.image} name={project.name} href={project.href} />
+                <Project key={project.name} image={project.image} name={project.name} href={project.href} stack={project.stack} />
             ))}
         </div>
     );

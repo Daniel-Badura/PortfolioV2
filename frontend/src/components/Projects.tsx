@@ -28,14 +28,14 @@ function Projects(): JSX.Element {
                     <h2 className="text-4xl text-center uppercase md:text-left md:text-5xl">
                         My Projects
                     </h2>
-                    <button className="hidden btn md:block">
+                    <a className="hidden btn md:block rounded-xl" href="/projects">
                         SEE ALL
-                    </button>
+                    </a>
                 </div>
                 {/* Item container */}
                 <div className="item-container">
                     {projects?.slice(0, 4).map((project: any) => (
-                        <Project key={project.name} image={project.image} name={project.name} href={project.href} />
+                        <Project key={project.name} image={project.image} name={project.name} href={project.href} stack={project.stack} />
                     ))}
                 </div>
             </div>
