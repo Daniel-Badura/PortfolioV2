@@ -45,6 +45,11 @@ function Footer(): JSX.Element {
                             className="flex items-center justify-center mx-auto space-x-4 md:justify-end md:mx-0  "
                         >
                             <div className="h-8 group hover:scale-125 transition">
+                                <a href="https://github.com/Daniel-Badura">
+                                    <img src="./images/github-mark-white.svg" alt="" className="h-6" />
+                                </a>
+                            </div>
+                            <div className="h-8 group hover:scale-125 transition">
                                 <a href="https://www.linkedin.com/in/daniel-badura/">
                                     <img src="./images/linkedin.svg" alt="" className="h-6" />
                                 </a>
