@@ -13,7 +13,7 @@ function Feature(): JSX.Element {
                 {/* Text container */}
                 <div className="bg-white rounded-2xl md:absolute md:right-0 md:bottom-0 md:py-10 md:pl-10 pr-0 bg-opacity-30">
                     <h2 className="text-4xl font-chakra text-gray-900 uppercase max-w-lg text-center md:text-5xl md:text-center md:mt-0 mt-10 mb-6">
-                        OMG LOOK AT ME SMILING!
+                        LOOK AT ME SMILING!
                     </h2>
                     <p className="max-w-md text-center md:text-left">
                         Eat some lorem ipsum

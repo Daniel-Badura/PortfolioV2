@@ -18,7 +18,7 @@ function Projects(): JSX.Element {
         if (projectList.error === "initial") {
             dispatch(listProjects())
         }
-    }, []);
+    }, [dispatch, projectList]);
 
     return (
         <section id="projects">
@@ -32,7 +32,8 @@ function Projects(): JSX.Element {
                         SEE ALL
                     </button>
                 </div>
-                {/* Item container */}<div className="item-container">
+                {/* Item container */}
+                <div className="item-container">
                     {projects?.slice(0, 4).map((project: any) => (
                         <Project key={project.name} image={project.image} name={project.name} href={project.href} />
                     ))}
