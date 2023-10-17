@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import Project from './Project';
 import { useSelector } from "react-redux";
 import { listProjects } from '../actions/projectActions';
@@ -22,7 +22,7 @@ function Projects(): JSX.Element {
 
     return (
         <section id="projects">
-            <div className="max-w-6xl mx-auto my-32 px-6 text-gray-900 md:px-0">
+            <div className="font-chakra container max-w-6xl mx-auto my-32 px-6 text-gray-900 md:px-0">
                 {/* Projects Header */}
                 <div className="flex justify-center mb-20 md:justify-between">
                     <h2 className="text-4xl text-center uppercase md:text-left md:text-5xl">
@@ -32,11 +32,11 @@ function Projects(): JSX.Element {
                         SEE ALL
                     </button>
                 </div>
-                {/* Item container */}
-                {projects?.map((project: any) => (
-                    <Project key={project.name} image={project.image} name={project.name} />
-                ))}
-
+                {/* Item container */}<div className="item-container">
+                    {projects?.slice(0, 4).map((project: any) => (
+                        <Project key={project.name} image={project.image} name={project.name} href={project.href} />
+                    ))}
+                </div>
             </div>
         </section>
     );
