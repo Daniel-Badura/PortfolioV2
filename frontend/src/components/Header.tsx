@@ -45,9 +45,9 @@ function Header(): JSX.Element {
                             type="button"
                             className={`z-40 block hamburger md:hidden focus:outline-none ${isActive ? "open" : ""}`}
                         >
-                            <span className="hamburger-top"></span>
-                            <span className="hamburger-middle"></span>
-                            <span className="hamburger-bottom"></span>
+                            <span className="hamburger-top hover:bg-red-500"></span>
+                            <span className="hamburger-middle hover:bg-red-500"></span>
+                            <span className="hamburger-bottom hover:bg-red-500"></span>
                         </button>
                     </div>
                 </nav>
