@@ -16,11 +16,13 @@ function Feature(): JSX.Element {
                         LOOK AT ME SMILING!
                     </h2>
                     <p className="max-w-md text-center md:text-left">
+                        Seasoned IT admin with a variety of web-dev skills.
+                        <br />
                         Eat some lorem ipsum
                         dolor sit amet consectetur adipisicing elit. Error eos
                         beatae laborum vel distinctio optio soluta, quis harum velit
                         maiores libero laudantium rem ex ullam dolores officia quidem fugit
-                        necessitatibus.
+                        as if anyone would ever read it.
                     </p>
                 </div>
             </div>
