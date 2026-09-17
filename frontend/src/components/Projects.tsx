@@ -1,46 +1,20 @@
-import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import { useProjects } from '../content/ProjectsProvider';
 import Project from './Project';
-import { useSelector } from "react-redux";
-import { listProjects } from '../actions/projectActions';
-import { RootState } from '../app/store';
-import { useAppDispatch } from '../app/hooks';
 
-
-
-
-function Projects(): JSX.Element {
-
-    // const [data, setData] = useState<any>(null);
-    const dispatch = useAppDispatch();
-    const projectList = useSelector((state: RootState) => state.projectList);
-    const { projects } = projectList;
-    useEffect(() => {
-        if (projectList.error === "initial") {
-            dispatch(listProjects())
-        }
-    }, [dispatch, projectList]);
-
-    return (
-        <section id="projects">
-            <div className="font-chakra container max-w-6xl mx-auto my-32 px-6 text-gray-900 md:px-0">
-                {/* Projects Header */}
-                <div className="flex justify-center mb-20 md:justify-between">
-                    <h2 className="text-4xl text-center uppercase md:text-left md:text-5xl">
-                        My Projects
-                    </h2>
-                    <a className="hidden btn md:block rounded-xl" href="/projects">
-                        SEE ALL
-                    </a>
-                </div>
-                {/* Item container */}
-                <div className="item-container">
-                    {projects?.slice(0, 4).map((project: any) => (
-                        <Project key={project.name} image={project.image} name={project.name} href={project.href} stack={project.stack} />
-                    ))}
-                </div>
-            </div>
-        </section>
-    );
+export default function Projects({ featured = false }: { featured?: boolean }) {
+  const { projects, unavailable } = useProjects();
+  const selected = featured ? projects.slice(0, 3) : projects;
+  return (
+    <section className="projects-section" aria-labelledby="projects-heading">
+      <div className="section-heading">
+        <div><p className="eyebrow mono">02 / Projects</p><h2 id="projects-heading">{featured ? 'Selected work' : 'Web development projects'}</h2></div>
+        {featured && <Link className="text-link" to="/projects">All projects <span aria-hidden="true">→</span></Link>}
+      </div>
+      <p className="section-intro">Selected web projects, from the Ogrodnictwo Badura online store to earlier full-stack applications.</p>
+      {unavailable && <p className="notice" role="status">Showing the project archive included with this website. Live updates are temporarily unavailable.</p>}
+      {selected.length === 0 ? <p className="notice">No projects are published yet.</p> : selected.map((project, index) => <Project key={project.id} project={project} index={index} />)}
+      <p className="archive-note">Links marked “Historical demo” refer to earlier projects and may no longer be available. Source repositories are linked where public.</p>
+    </section>
+  );
 }
-
-export default Projects;

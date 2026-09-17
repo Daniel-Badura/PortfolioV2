@@ -1,18 +1,20 @@
-import React from 'react';
+import ContactForm from '../components/ContactForm';
+import { profile } from '../content/profile';
 
-function ContactScreen(): JSX.Element {
-    return (
-        <div className="relative container mx-auto px-6 md:max-w-6xl md:flex md:flex-col h-36 pt-2">
-
-            {/* Text container */}
-            <div className="bg-black rounded-2xl md:right-0 md:bottom-0 md:py-10 pl-10 pr-10 bg-opacity-30 justify-center w-fit">
-                <a href="mailto: daniel.badura@outlook.com" className="font-chakra text-gray-900 uppercase max-w-lg text-center md:text-4xl sm:text-xl md:text-center md:mt-0 mt-10 mb-6" >
-                    daniel.badura@outlook.com
-                </a>
-
-            </div>
+export default function ContactScreen() {
+  return (
+    <div className="container page-content contact-page">
+      <div className="page-heading"><p className="eyebrow mono">Contact</p><h1>Get in touch.</h1><p>Have a DevOps or Platform Engineering opportunity in mind? Send me a message with a little context about the role, team or project.</p></div>
+      <section className="contact-methods" aria-labelledby="message-heading">
+        <div className="primary-contact">
+          <div className="contact-form-heading"><p className="eyebrow mono">01 / Message</p><h2 id="message-heading">Start a conversation.</h2></div>
+          <ContactForm />
         </div>
-    );
+        <div className="contact-profiles">
+          <a href={profile.linkedin}><span className="eyebrow mono">02 / Professional profile</span><strong>LinkedIn <span aria-hidden="true">↗</span></strong><span>Connect and start a conversation.</span></a>
+          <a href={profile.github}><span className="eyebrow mono">03 / Source code</span><strong>GitHub <span aria-hidden="true">↗</span></strong><span>Explore my repositories and projects.</span></a>
+        </div>
+      </section>
+    </div>
+  );
 }
-
-export default ContactScreen;

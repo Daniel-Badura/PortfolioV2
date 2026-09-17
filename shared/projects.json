@@ -1,0 +1,90 @@
+[
+  {
+    "id": "ogrodnictwo-badura",
+    "name": "Ogrodnictwo Badura",
+    "category": "Online store · Horticulture",
+    "description": "An online store for Ogrodnictwo Badura, built with WordPress and WooCommerce. Customers can browse ornamental plants by category, explore product variants and place orders online.",
+    "stack": ["WordPress", "WooCommerce"],
+    "image": "/images/ogrodnictwo-badura.webp",
+    "href": "https://sklep.ogrodnictwo-badura.pl/",
+    "linkLabel": "Visit online store"
+  },
+  {
+    "id": "testowo",
+    "name": "Testowo",
+    "category": "Learning application",
+    "description": "Create multiple-choice questions and test your knowledge online. A full-stack web application built with the MERN stack.",
+    "stack": [
+      "MongoDB",
+      "Express",
+      "React",
+      "Node.js",
+      "Bootstrap"
+    ],
+    "image": "/images/testwowo.webp",
+    "href": "https://www.testwowo.com/",
+    "repo": "https://github.com/Daniel-Badura/testowo"
+  },
+  {
+    "id": "websklep",
+    "name": "WebSklep",
+    "category": "E-commerce application",
+    "description": "An online shop built with React, Express and MongoDB. A web development project connecting a storefront with a Node.js backend.",
+    "stack": [
+      "MongoDB",
+      "Express",
+      "React",
+      "Node.js"
+    ],
+    "image": "/images/websklep.webp",
+    "href": "https://websklep.herokuapp.com/",
+    "repo": "https://github.com/Daniel-Badura/websklep"
+  },
+  {
+    "id": "github-lens",
+    "name": "GitHub Lens",
+    "category": "Search application",
+    "description": "A web application for finding GitHub users. Built with the MERN stack, with a focused search interface.",
+    "stack": [
+      "MongoDB",
+      "Express",
+      "React",
+      "Node.js"
+    ],
+    "image": "/images/gitlens.webp",
+    "href": "https://github-lens.herokuapp.com/",
+    "repo": "https://github.com/Daniel-Badura/Github-Lens"
+  },
+  {
+    "id": "widoczki",
+    "name": "Widoczki",
+    "category": "Photo-sharing application",
+    "description": "A place to post photographs of different locations. Server-rendered pages using EJS, backed by Express and MongoDB.",
+    "stack": [
+      "Express",
+      "EJS",
+      "MongoDB",
+      "Node.js",
+      "Bootstrap"
+    ],
+    "image": "/images/widoczki.webp",
+    "href": "https://daniel-badura-portfolio.herokuapp.com/widoczki",
+    "repo": "https://github.com/Daniel-Badura/Portfolio"
+  },
+  {
+    "id": "portfolio-v1",
+    "name": "Portfolio v1",
+    "category": "Personal website · 2021",
+    "description": "The first version of this portfolio, created in 2021. An earlier approach to presenting web projects using server-rendered EJS templates.",
+    "stack": [
+      "Express",
+      "EJS",
+      "MongoDB",
+      "Node.js",
+      "Bootstrap"
+    ],
+    "image": "/images/Portfolio.webp",
+    "href": "https://daniel-badura-portfolio.herokuapp.com/",
+    "repo": "https://github.com/Daniel-Badura/Portfolio"
+  }
+]

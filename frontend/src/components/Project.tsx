@@ -1,31 +1,28 @@
-import React from 'react'
+import { bundledProjects, type ProjectData } from '../content/projects';
 
-interface ProjectProps {
-    name: string
-    image: string
-    href: string
-    stack: string
+export default function Project({ project, index }: { project: ProjectData; index: number }) {
+  const hasResponsiveImage = bundledProjects.some(item => item.image === project.image);
+  return (
+    <article className="project-row">
+      <span className="project-number mono" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+      <div className="project-content">
+        <p className="eyebrow">{project.category}</p>
+        <h3>{project.name}</h3>
+        <p>{project.description}</p>
+        <ul className="tech-list" aria-label={project.name + ' technologies'}>
+          {project.stack.map(technology => <li key={technology}>{technology}</li>)}
+        </ul>
+        <div className="project-links">
+          {project.repo && <a href={project.repo} aria-label={'View ' + project.name + ' source code'}>Source code <span aria-hidden="true">↗</span></a>}
+          <a className={project.repo ? 'secondary-link' : undefined} href={project.href} aria-label={(project.linkLabel || 'Historical demo') + ' — ' + project.name}>{project.linkLabel || 'Historical demo'} <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+      <div className="project-image">
+        <img src={project.image}
+          srcSet={hasResponsiveImage ? project.image.replace('.webp', '-360.webp') + ' 360w, ' + project.image.replace('.webp', '-540.webp') + ' 540w, ' + project.image + ' 720w' : undefined}
+          sizes="(max-width: 720px) min(calc(100vw - 104px), 394px), (max-width: 1000px) 214px, 274px"
+          alt={project.name + ' application interface'} width="720" height="450" loading="lazy" decoding="async" />
+      </div>
+    </article>
+  );
 }
-
-function Project({ image, name, href, stack }: ProjectProps): JSX.Element {
-    return (
-
-        <a className="group item rounded-xl h-74" href={href}>
-            {/* desktop image */}
-            <img src={image} alt="" className="hidden h-full duration-200 md:block group-hover:scale-110 " />
-            {/* mobile image */}
-            <img src={image} alt="" className='md:hidden w-full' />
-            {/* gradient */}
-            <div className="item-gradient">
-            </div>
-            <h5 className="pl-20 md:pl-5 font-bold absolute px-6 duration-200 w-full bottom-4 md:bottom-8 md:px-10 group-hover:scale-110 group-hover:text-black">
-                {name}
-            </h5>
-            <h5 className="pl-20 md:pl-5 text-transparent text-base absolute px-6 duration-200 w-full top-4 md:bottom-8 md:px-10 group-hover:scale-110  group-hover:text-red-600">
-                {stack}
-            </h5>
-        </a >
-    )
-}
-
-export default Project

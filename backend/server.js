@@ -1,47 +1,21 @@
-import express from "express";
-import dotenv from "dotenv";
-import colors from "colors";
-import morgan from "morgan";
-import path from "path";
-import connectDB from "./config/db.js";
-import projectRoutes from "./routes/projectRoutes.js";
+import 'dotenv/config';
+import mongoose from 'mongoose';
+import connectDB from './config/db.js';
+import { createApp } from './app.js';
 
-import { errorHandler, notFound } from "./middleware/errorMiddleware.js";
-
-const app = express();
-
-if (process.env.NODE_ENV === "development") {
-  app.use(morgan("dev"));
+try {
+  const app = createApp();
+  if (app.locals.dataSource === 'mongodb') await connectDB();
+  const port = Number(process.env.PORT || 5000);
+  if (!Number.isInteger(port) || port < 1 || port > 65535) throw new Error('Invalid PORT');
+  const server = app.listen(port, () => console.log('Portfolio listening on port ' + port));
+  for (const signal of ['SIGINT', 'SIGTERM']) {
+    process.once(signal, () => {
+      server.close(async () => { await mongoose.disconnect(); process.exit(0); });
+      setTimeout(() => process.exit(1), 10000).unref();
+    });
+  }
+} catch {
+  console.error('Unable to start portfolio. Check PORT, DATA_SOURCE and MongoDB configuration.');
+  process.exitCode = 1;
 }
-
-const __dirname = path.resolve();
-
-app.use(express.json());
-
-dotenv.config();
-
-connectDB();
-// @desc Start Express Application //
-app.use("/api/projects", projectRoutes);
-
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "/frontend/build")));
-  app.get("*", (req, res) =>
-    res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
-  );
-} else {
-  app.get("/", (req, res) => {
-    res.send("API Server");
-  });
-}
-
-app.use(notFound);
-app.use(errorHandler);
-
-let PORT = process.env.PORT || 5000;
-app.listen(
-  PORT,
-  console.log(
-    `Server running in ${process.env.NODE_ENV} on port: ${PORT}`.yellow
-  )
-);

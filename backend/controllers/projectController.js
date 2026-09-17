@@ -1,79 +1,50 @@
-import asyncHandler from "express-async-handler";
-import Project from "../models/projectModel.js";
+import mongoose from 'mongoose';
+import projects from '../data/projects.js';
+import Project from '../models/projectModel.js';
 
-// @desc        Fetch all  projects
-// @route       GET /api/projects
-// @access      Public
-export const getProjects = asyncHandler(async (req, res) => {
-  const name = req.query.keyword
-    ? {
-        name: {
-          $regex: req.query.keyword,
-          $options: "i",
-        },
-      }
-    : {};
-  const brand = req.query.keyword
-    ? {
-        brand: {
-          $regex: req.query.keyword,
-          $options: "i",
-        },
-      }
-    : {};
+const escapeRegex = value => value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
-  const description = req.query.keyword
-    ? {
-        description: {
-          $regex: req.query.keyword,
-          $options: "i",
-        },
-      }
-    : {};
-
-  const category = req.query.keyword
-    ? {
-        category: {
-          $regex: req.query.keyword,
-          $options: "i",
-        },
-      }
-    : {};
-  const search = [
-    { ...name },
-    { ...brand },
-    { ...description },
-    { ...category },
-  ];
-  const projects = await Project.find({
-    $or: search,
-  });
-  res.json(projects);
-});
-
-// @desc        Fetch single project
-// @route       GET /api/projects/:id
-// @access      Public
-export const getProject = asyncHandler(async (req, res) => {
-  const project = await Project.findById(req.params.id);
-  const projectDetails = {
-    _id: project._id,
+export function serializeProject(project) {
+  const source = projects.find(item => item.repo === project.repo && item.name.toLowerCase() === project.name.toLowerCase());
+  return {
+    id: project.id ?? String(project._id),
     name: project.name,
-    image: project.image,
-    user: project.user,
-    category: project.category,
-    brand: project.brand,
+    category: project.category || source?.category || 'Web application',
     description: project.description,
-    rating: project.rating,
-    numReviews: project.numReviews,
-    featured: project.featured,
-    reviews: project.reviews,
-    questions: project.questions.length,
+    stack: Array.isArray(project.stack) ? project.stack : String(project.stack).split(/\s+/),
+    image: source?.image || project.image,
+    href: project.href,
+    repo: project.repo,
+    linkLabel: project.linkLabel || source?.linkLabel,
   };
-  if (project) {
-    res.json(projectDetails);
-  } else {
-    res.status(404);
-    throw new Error("Project not found");
-  }
-});
+}
+
+export async function getProjects(req, res, next) {
+  try {
+    if (req.query.keyword !== undefined && (typeof req.query.keyword !== 'string' || req.query.keyword.length > 100)) {
+      return res.status(400).json({ message: 'keyword must be a string of at most 100 characters' });
+    }
+    const keyword = (req.query.keyword || '').trim();
+    if (req.app.locals.dataSource === 'mongodb') {
+      const pattern = { $regex: escapeRegex(keyword), $options: 'i' };
+      const data = await Project.find(keyword ? { $or: [{ name: pattern }, { description: pattern }, { stack: pattern }] } : {}).lean();
+      return res.json(data.map(serializeProject));
+    }
+    res.json(projects.filter(project => [project.name, project.description, ...project.stack].join(' ').toLowerCase().includes(keyword.toLowerCase())));
+  } catch (error) { next(error); }
+}
+
+export async function getProject(req, res, next) {
+  try {
+    let project;
+    if (req.app.locals.dataSource === 'mongodb') {
+      if (!mongoose.isObjectIdOrHexString(req.params.id)) return res.status(400).json({ message: 'Invalid project ID' });
+      const record = await Project.findById(req.params.id).lean();
+      project = record && serializeProject(record);
+    } else {
+      project = projects.find(item => item.id === req.params.id);
+    }
+    if (!project) return res.status(404).json({ message: 'Project not found' });
+    res.json(project);
+  } catch (error) { next(error); }
+}

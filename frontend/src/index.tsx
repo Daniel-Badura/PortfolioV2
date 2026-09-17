@@ -1,20 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
+import { StrictMode } from 'react';
+import { createRoot, hydrateRoot } from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import App from './App';
-import { store } from './app/store';
-import reportWebVitals from './reportWebVitals';
-import { Provider } from 'react-redux';
+import './index.css';
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
-);
-
-reportWebVitals();
+const container = document.getElementById('root');
+if (!container) throw new Error('Application root not found');
+const app = <StrictMode><BrowserRouter><App /></BrowserRouter></StrictMode>;
+if (container.hasChildNodes()) hydrateRoot(container, app);
+else createRoot(container).render(app);
