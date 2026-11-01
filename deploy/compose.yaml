@@ -1,0 +1,29 @@
+services:
+  web:
+    image: ${PORTFOLIO_IMAGE:?Set the verified image ID}
+    pull_policy: never
+    user: "1000:1000"
+    ports:
+      - "127.0.0.1:${PORTFOLIO_PORT:-8085}:5000"
+    environment:
+      NODE_ENV: production
+      DATA_SOURCE: file
+      PORT: "5000"
+      NODE_OPTIONS: --max-old-space-size=128
+    restart: unless-stopped
+    init: true
+    read_only: true
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    mem_limit: 192m
+    cpus: 0.5
+    pids_limit: 64
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "3"

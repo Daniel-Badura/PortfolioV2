@@ -13,3 +13,5 @@ yarn-error.log*
 .docker/
 volumes/
 secrets/
+__pycache__/
+*.pyc

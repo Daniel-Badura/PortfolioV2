@@ -1,10 +1,14 @@
 name: Quality
-on: [push, pull_request]
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
 permissions:
   contents: read
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -19,6 +23,7 @@ jobs:
       - run: npm run lint
       - run: npm run typecheck
       - run: npm test
+      - run: python3 -m unittest discover -s tests/deployment -v
       - run: npm run build
         env:
           SITE_URL: https://portfolio.example
@@ -29,3 +34,34 @@ jobs:
         with:
           name: browser-test-results
           path: test-results/
+  deploy:
+    needs: verify
+    if: >-
+      github.repository == 'Daniel-Badura/PortfolioV2' &&
+      github.ref == 'refs/heads/main' &&
+      (github.event_name == 'push' || github.event_name == 'workflow_dispatch') &&
+      vars.PORTFOLIO_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment:
+      name: portfolio-production
+      url: https://www.daniel-badura.com
+    concurrency:
+      group: portfolio-production
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Build image and deploy only the portfolio project
+        run: bash scripts/deploy-vps.sh
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PORTFOLIO_DEPLOY_KEY: ${{ secrets.PORTFOLIO_DEPLOY_KEY }}
+          PORTFOLIO_DEPLOY_HOST: ${{ vars.PORTFOLIO_DEPLOY_HOST }}
+          PORTFOLIO_DEPLOY_USER: ${{ vars.PORTFOLIO_DEPLOY_USER }}
+          PORTFOLIO_SSH_KNOWN_HOSTS: ${{ vars.PORTFOLIO_SSH_KNOWN_HOSTS }}
+          PORTFOLIO_PUBLIC_CHECK_ENABLED: ${{ vars.PORTFOLIO_PUBLIC_CHECK_ENABLED }}

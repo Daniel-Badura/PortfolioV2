@@ -68,7 +68,36 @@ Without SITE_URL, canonical URLs, sitemap and absolute OG image metadata are del
 
 Express serves CSP with a JSON-LD hash, anti-framing, nosniff and referrer/permissions headers. Hashed JS/CSS have immutable caching and Brotli/gzip variants; HTML is compressed and revalidated. HTTPS termination, redirects and HSTS belong at the production hosting/reverse proxy layer. Confirm the domain and affected subdomains before enabling HSTS.
 
-The existing Heroku postbuild entry remains. No deployment was performed.
+### GitHub Actions and the portfolio VPS
+
+The portfolio uses its own Docker Compose project on the shared VPS `178.104.2.136`. The public origin stays `https://www.daniel-badura.com`; the apex redirects to www. Host Caddy proxies only these domains to `127.0.0.1:8085`. Other sites, Docker projects, volumes and Caddy blocks are outside this deployment's scope.
+
+`.github/workflows/quality.yml` runs lint, TypeScript, API tests, deployment-tooling tests, production build and browser tests. After successful verification, trusted `main` pushes/manual runs build an image on the GitHub runner, pin its source revision, transfer it over SSH and deploy through the root-owned gateway. No image build runs on the VPS. Queued superseded commits are skipped; active deployments are not cancelled.
+
+Runtime: `/opt/portfolio/control/compose.yaml`, project `portfolio-production`, 192 MiB RAM, 0.5 CPU, read-only filesystem, unprivileged Node process, no capabilities, no database/volume and bounded container logs. Temporary project `portfolio-candidate` on loopback port 8086 is verified before promotion and removed afterwards. Checks cover the exact `/version.json` commit, API health, projects, pages and project images. A failed replacement restores the previous portfolio image when one exists. Uploaded images are size-bounded, checked for unsafe archive paths/links, restricted to the portfolio commit tag and checked for matching source labels before loading. Old image IDs and release metadata are retained for rollback; no global Docker cleanup runs.
+
+One-time operator installation, from a reviewed source snapshot:
+
+```sh
+# Root, in the deployment snapshot; pass a new dedicated public key.
+bash deploy/install.sh /operator/portfolio-ci.pub
+```
+
+The `portfolio-deploy` account has a locked password, no Docker/sudo group and no interactive shell access through its CI key. Its root-owned authorized key forces a gateway accepting only `status`, `deploy <40-hex-SHA>` with a gzip Docker image on stdin, or `rollback <40-hex-SHA>` for an already recorded release. The narrow sudo rule permits only the installed gateway. Source changes to the gateway/Compose require a reviewed operator update; the upload never replaces host control code.
+
+GitHub environment `portfolio-production`: secret `PORTFOLIO_DEPLOY_KEY` holds only this dedicated private key. Repository variables: `PORTFOLIO_DEPLOY_HOST=178.104.2.136`, `PORTFOLIO_DEPLOY_USER=portfolio-deploy`, and `PORTFOLIO_SSH_KNOWN_HOSTS` containing the verified host public key obtained over an authenticated operator connection. `PORTFOLIO_DEPLOY_ENABLED=true` enables deployment. `PORTFOLIO_PUBLIC_CHECK_ENABLED=true` adds a public-domain verification after DNS cutover; keep it false during first local VPS preparation. Keys are temporary on the runner and removed on exit. No root/admin SSH key is stored in Actions.
+
+Bootstrap sequence: install the gateway/key, configure Actions, push the tested workflow, check the candidate and production loopback endpoints, then validate and append `deploy/Caddyfile.fragment` to the current Caddy configuration without replacing existing site blocks. Reload Caddy only after validation. Change only the Cloudflare origin records for the portfolio apex/www, preserving unrelated DNS and Cloudflare settings. Verify TLS, canonical URLs, exact release SHA and existing sites before freezing the previous Heroku deployment trigger. Keep the Heroku app available as a fallback until the owner confirms retirement. No Heroku subscription cancellation is part of deployment.
+
+Operations (using the dedicated key and verified known_hosts):
+
+```sh
+ssh portfolio-deploy@178.104.2.136 status
+ssh portfolio-deploy@178.104.2.136 'rollback PREVIOUS_40_HEX_SHA'
+gh workflow run quality.yml --ref main --repo Daniel-Badura/PortfolioV2
+```
+
+Pause new deployments with repository variable `PORTFOLIO_DEPLOY_ENABLED=false`; it does not stop a running deploy. Failed/ambiguous deployments require inspection of the workflow, gateway output and the scoped Compose project before retrying. The authoritative running revision is the image ID and `/version.json`; release metadata is updated only after health checks. This application has no durable server-side data; source and immutable images are its recovery inputs. Heroku build hooks remain in package.json only for fallback compatibility.
 
 ### Docker
 

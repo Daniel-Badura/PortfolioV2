@@ -1,0 +1,10 @@
+# Append to a validated copy of the host Caddyfile after local portfolio checks pass.
+# Keep the existing canonical www origin.
+daniel-badura.com {
+    redir https://www.daniel-badura.com{uri} permanent
+}
+www.daniel-badura.com {
+    encode zstd gzip
+    header -Server
+    reverse_proxy 127.0.0.1:8085
+}
