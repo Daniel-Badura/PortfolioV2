@@ -9,6 +9,6 @@ export const profile = {
 
 export const pages = {
   '/': { title: 'Daniel Badura — DevOps / Platform Engineer', description: 'Daniel Badura, DevOps / Platform Engineer with a background in IT administration and web development. Explore selected projects and get in touch.' },
-  '/projects': { title: 'Projects — Daniel Badura', description: 'Web projects by Daniel Badura: the Ogrodnictwo Badura online store, Testowo, WebSklep, GitHub Lens, Widoczki and the original portfolio.' },
+  '/projects': { title: 'Projects — Daniel Badura', description: 'Projects by Daniel Badura: Badura Tech, Music Info, the Ogrodnictwo Badura online store, the skle.pl demo store and SHOT on Steam.' },
   '/contact': { title: 'Contact — Daniel Badura', description: 'Contact Daniel Badura about DevOps and Platform Engineering. Send a message or connect on LinkedIn and GitHub.' },
 };

@@ -1,90 +1,69 @@
 [
   {
+    "id": "badura-tech",
+    "name": "Badura Tech",
+    "category": "Company website · Client portal",
+    "description": "A bilingual website for my IT business, covering system architecture, software, integrations and cloud migrations. Includes a private client portal for project stages, messages and documents.",
+    "stack": [
+      "Laravel",
+      "PHP",
+      "Livewire",
+      "PostgreSQL"
+    ],
+    "image": "/images/badura-tech.webp",
+    "href": "https://baduratech.com/en",
+    "linkLabel": "Visit website"
+  },
+  {
+    "id": "music-info",
+    "name": "Music Info",
+    "category": "Company website · Music & AV",
+    "description": "The Music Info Group website, presenting musical instruments, audio-visual technology, projects and installations. Visitors can explore the group's companies, areas of expertise and product catalogue.",
+    "stack": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "image": "/images/musicinfo.webp",
+    "href": "https://musicinfo.pl/",
+    "linkLabel": "Visit website"
+  },
+  {
     "id": "ogrodnictwo-badura",
     "name": "Ogrodnictwo Badura",
     "category": "Online store · Horticulture",
     "description": "An online store for Ogrodnictwo Badura, built with WordPress and WooCommerce. Customers can browse ornamental plants by category, explore product variants and place orders online.",
-    "stack": ["WordPress", "WooCommerce"],
+    "stack": [
+      "WordPress",
+      "WooCommerce"
+    ],
     "image": "/images/ogrodnictwo-badura.webp",
     "href": "https://sklep.ogrodnictwo-badura.pl/",
     "linkLabel": "Visit online store"
   },
   {
-    "id": "testowo",
-    "name": "Testowo",
-    "category": "Learning application",
-    "description": "Create multiple-choice questions and test your knowledge online. A full-stack web application built with the MERN stack.",
+    "id": "skle-pl",
+    "name": "skle.pl",
+    "category": "E-commerce · Demo",
+    "description": "A demo online store with a product catalogue and shopping cart. A demonstration of the storefront experience, with ordering, registration and outgoing email disabled.",
     "stack": [
-      "MongoDB",
-      "Express",
-      "React",
-      "Node.js",
-      "Bootstrap"
+      "WordPress",
+      "WooCommerce"
     ],
-    "image": "/images/testwowo.webp",
-    "href": "https://www.testwowo.com/",
-    "repo": "https://github.com/Daniel-Badura/testowo"
+    "image": "/images/skle.webp",
+    "href": "https://skle.pl/shop/",
+    "linkLabel": "View demo"
   },
   {
-    "id": "websklep",
-    "name": "WebSklep",
-    "category": "E-commerce application",
-    "description": "An online shop built with React, Express and MongoDB. A web development project connecting a storefront with a Node.js backend.",
+    "id": "shot",
+    "name": "SHOT",
+    "category": "Game development · In development",
+    "description": "A Western shooting gallery roguelite developed under Badura Tech. Precision shooting, incoming attacks and perk combinations shape encounters with enemies and bosses. Explore the project on Steam.",
     "stack": [
-      "MongoDB",
-      "Express",
-      "React",
-      "Node.js"
+      "Unreal Engine"
     ],
-    "image": "/images/websklep.webp",
-    "href": "https://websklep.herokuapp.com/",
-    "repo": "https://github.com/Daniel-Badura/websklep"
-  },
-  {
-    "id": "github-lens",
-    "name": "GitHub Lens",
-    "category": "Search application",
-    "description": "A web application for finding GitHub users. Built with the MERN stack, with a focused search interface.",
-    "stack": [
-      "MongoDB",
-      "Express",
-      "React",
-      "Node.js"
-    ],
-    "image": "/images/gitlens.webp",
-    "href": "https://github-lens.herokuapp.com/",
-    "repo": "https://github.com/Daniel-Badura/Github-Lens"
-  },
-  {
-    "id": "widoczki",
-    "name": "Widoczki",
-    "category": "Photo-sharing application",
-    "description": "A place to post photographs of different locations. Server-rendered pages using EJS, backed by Express and MongoDB.",
-    "stack": [
-      "Express",
-      "EJS",
-      "MongoDB",
-      "Node.js",
-      "Bootstrap"
-    ],
-    "image": "/images/widoczki.webp",
-    "href": "https://daniel-badura-portfolio.herokuapp.com/widoczki",
-    "repo": "https://github.com/Daniel-Badura/Portfolio"
-  },
-  {
-    "id": "portfolio-v1",
-    "name": "Portfolio v1",
-    "category": "Personal website · 2021",
-    "description": "The first version of this portfolio, created in 2021. An earlier approach to presenting web projects using server-rendered EJS templates.",
-    "stack": [
-      "Express",
-      "EJS",
-      "MongoDB",
-      "Node.js",
-      "Bootstrap"
-    ],
-    "image": "/images/Portfolio.webp",
-    "href": "https://daniel-badura-portfolio.herokuapp.com/",
-    "repo": "https://github.com/Daniel-Badura/Portfolio"
+    "image": "/images/shot.webp",
+    "href": "https://store.steampowered.com/app/5381390/",
+    "linkLabel": "View on Steam"
   }
 ]

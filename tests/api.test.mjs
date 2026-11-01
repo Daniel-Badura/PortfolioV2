@@ -23,14 +23,17 @@ test('file mode serves the documented archive with no database', () => withServe
 }));
 
 test('search is case insensitive, bounded and literal', () => withServer(async base => {
-  assert.equal((await (await fetch(base + '/api/projects?keyword=rEaCt')).json()).length, 3);
+  assert.equal((await (await fetch(base + '/api/projects?keyword=wOoCoMmErCe')).json()).length, 2);
   assert.deepEqual(await (await fetch(base + '/api/projects?keyword=' + encodeURIComponent('.*'))).json(), []);
   assert.equal((await fetch(base + '/api/projects?keyword=' + 'x'.repeat(101))).status, 400);
   assert.equal((await fetch(base + '/api/projects?keyword[]=x')).status, 400);
 }));
 
 test('project detail, missing record, API 404 and health', () => withServer(async base => {
-  assert.deepEqual(await (await fetch(base + '/api/projects/testowo')).json(), projects.find(project => project.id === 'testowo'));
+  assert.deepEqual(await (await fetch(base + '/api/projects/badura-tech')).json(), projects.find(project => project.id === 'badura-tech'));
+  for (const id of ['testowo', 'websklep', 'github-lens', 'widoczki', 'portfolio-v1']) {
+    assert.equal((await fetch(base + '/api/projects/' + id)).status, 404);
+  }
   assert.equal((await fetch(base + '/api/projects/missing')).status, 404);
   const missing = await fetch(base + '/api/missing');
   assert.equal(missing.status, 404);

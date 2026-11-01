@@ -22,14 +22,14 @@ export default function HomeScreen() {
             <div><dt>Background</dt><dd>IT administration<br />Web development</dd></div>
             <div><dt>Code & projects</dt><dd><a href={profile.github}>github.com/Daniel-Badura <span aria-hidden="true">↗</span></a></dd></div>
           </dl>
-          <div className="note-bottom mono"><span aria-hidden="true">↳</span> Project archive & source repositories</div>
+          <div className="note-bottom mono"><span aria-hidden="true">↳</span> Websites, online stores & game development</div>
         </aside>
       </section>
       <section className="background-section" aria-labelledby="background-heading">
         <div><p className="eyebrow mono">01 / Background</p><h2 id="background-heading">Across systems<br />and software.</h2></div>
         <div className="background-copy">
           <p>My background combines IT administration with building web applications. That gives me a view of both the systems an application depends on and the code running on them.</p>
-          <p>This portfolio brings together the Ogrodnictwo Badura online store, earlier development work and my current focus on DevOps and Platform Engineering.</p>
+          <p>This portfolio brings together Badura Tech, the websites, online stores and game project featured on its website, and my current focus on DevOps and Platform Engineering.</p>
           <Link className="text-link" to="/contact">Talk about experience & opportunities <span aria-hidden="true">→</span></Link>
         </div>
       </section>
