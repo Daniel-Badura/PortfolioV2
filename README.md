@@ -89,6 +89,8 @@ GitHub environment `portfolio-production`: secret `PORTFOLIO_DEPLOY_KEY` holds o
 
 Bootstrap sequence: install the gateway/key, configure Actions, push the tested workflow, check the candidate and production loopback endpoints, then validate and append `deploy/Caddyfile.fragment` to the current Caddy configuration without replacing existing site blocks. Reload Caddy only after validation. Change only the Cloudflare origin records for the portfolio apex/www, preserving unrelated DNS and Cloudflare settings. Verify TLS, canonical URLs, exact release SHA and existing sites before freezing the previous Heroku deployment trigger. Keep the Heroku app available as a fallback until the owner confirms retirement. No Heroku subscription cancellation is part of deployment.
 
+Use Cloudflare SSL/TLS **Full (strict)** for this zone with the valid origin certificate. The portfolio HTTP routes also honor Cloudflare's original HTTPS scheme to prevent redirect loops if an origin rule still forwards requests over HTTP. Ordinary HTTP visitors redirect to the canonical HTTPS URL. Caddy manages the portfolio certificates in its existing certificate storage; a one-time DNS challenge bootstrap does not require a long-lived DNS token on the VPS.
+
 Operations (using the dedicated key and verified known_hosts):
 
 ```sh

@@ -8,3 +8,19 @@ www.daniel-badura.com {
     header -Server
     reverse_proxy 127.0.0.1:8085
 }
+
+# Honor the original HTTPS scheme when Cloudflare connects to the origin over HTTP.
+# Plain HTTP visitors still redirect to the canonical HTTPS URL.
+http://daniel-badura.com {
+    redir https://www.daniel-badura.com{uri} permanent
+}
+http://www.daniel-badura.com {
+    @proxied_https header X-Forwarded-Proto https
+    handle @proxied_https {
+        header -Server
+        reverse_proxy 127.0.0.1:8085
+    }
+    handle {
+        redir https://www.daniel-badura.com{uri} permanent
+    }
+}
